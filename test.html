@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>To-Do List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        ul {
+            padding: 0;
+            list-style: none;
+        }
+
+        ul li {
+            margin-bottom: 20px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            line-height: 40px;
+            padding: 0 10px;
+        }
+
+        ul li .task {
+            display: inline-block;
+            width: 85%;
+        }
+
+        ul li .action {
+            display: inline-block;
+            width: 15%;
+            text-align: right;
+        }
+
+        ul li a {
+            color: #888;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>My To-Do List</h1>
+        <ul id="tasks">
+        </ul>
+        <input type="text" id="new-task" placeholder="Add a task...">
+        <button id="add-task-btn">Add</button>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        let tasks = [];
+        let $tasksList = $("#tasks");
+        let $newTaskInput = $("#new-task");
+
+        function addTask(name) {
+            tasks.push(name);
+            updateTasks();
+        }
+
+        function removeTask(index) {
+            tasks.splice(index, 1);
+            updateTasks();
+        }
+
+        function updateTasks() {
+            $tasksList.empty();
+            tasks.forEach((task, index) => {
+                $tasksList.append(
+                    `<li>
+                        <span class="task">${task}</span>
+                        <span class="action"><a href="#" data-task-index="${index}">Remove</a></span>
+                    </li>`
+                );
+            });
+        }
+
+        $("#add-task-btn").on("click", function () {
+            addTask($newTaskInput.val());
+            $newTaskInput.val("");
+        });
+
+        $tasksList.on("click", "a", function (e) {
+            e.preventDefault();
+            let taskIndex = $(this).data("task-index");
+            removeTask(taskIndex);
+        });
+    </script>
+</body>
+
+</html>
