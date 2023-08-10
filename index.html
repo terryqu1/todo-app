@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Call Python Script</title>
+    <script>
+        function uploadFile() {
+            var input = document.getElementById('fileInput');
+            var file = input.files[0];
+
+            if (file) {
+                document.getElementById('fileInfo').innerText = 'File Name: ' + file.name;
+            } else {
+                alert('Please select a file before uploading.');
+            }
+        }
+        function summarize() {
+            fetch('/run-script')
+                .then(response => response.text())
+                .then(data => document.getElementById('result').innerText = data)
+                .catch(error => console.error(error));
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Upload a File</h1>
+    <input type="file" id="fileInput">
+    <button onclick="uploadFile()">Upload</button>
+    <p id="fileInfo"></p>
+    <button onclick="summarize()">Summarize</button>
+</body>
+
+</html>

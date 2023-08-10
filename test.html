@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>To-Do List</title>
+    <title>File Uploader</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -54,13 +54,21 @@
 
 <body>
     <div class="container">
-        <h1>My To-Do List</h1>
+
+        <h1>Upload a File</h1>
+        <input type="file" id="fileInput">
+        <button onclick="uploadFile()">Upload</button>
+        <p id="fileInfo"></p>
+        <button onclick="summarize()">Summarize</button>
+
+        <h1>To Do List</h1>
         <ul id="tasks">
         </ul>
         <input type="text" id="new-task" placeholder="Add a task...">
         <button id="add-task-btn">Add</button>
     </div>
 
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         let tasks = [];
@@ -87,6 +95,19 @@
                     </li>`
                 );
             });
+        }
+        function uploadFile() {
+            var input = document.getElementById('fileInput');
+            var file = input.files[0];
+
+            if (file) {
+                document.getElementById('fileInfo').innerText = 'File Name: ' + file.name;
+            } else {
+                alert('Please select a file before uploading.');
+            }
+        }
+        function summarize() {
+
         }
 
         $("#add-task-btn").on("click", function () {
